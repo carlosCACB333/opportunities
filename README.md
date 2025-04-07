@@ -18,3 +18,8 @@ El proyecto está organizada en dos principales directorios: backend y frontend,
 - El frontend esta escrito con typescript usando la biblioteca Reactjs + Redux. La libreria de componentes es [hero.com](https://www.heroui.com/). Para la parte de produccion se usa nginx para servir los archivos estáticos generados en la compilación. La estructura del proyecto sigue la arquitecura de screamin archicture.
 
 - Se usa mongodb para la base de datos.
+
+
+## correr los test
+
+- dentro de la carpeta(backend o frontend) ejecutar `bun install` para instalar las dependencias. luego ejecutar `bun run test` para correr los test.
