@@ -1,0 +1,41 @@
+services:
+
+  mongodb:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: restaurant
+
+  backend:
+    image: backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: development
+    ports:
+      - "8080:8080"
+    environment:
+      - PORT=8080
+      - MONGO_URL=mongodb://root:example@mongodb:27017/restaurant?authSource=admin
+    depends_on:
+      - mongodb
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+
+  frontend:
+    image: frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: development
+    ports:
+      - "3000:3000"
+    environment:
+      - VITE_API_URL=http://localhost:8080/api/v1
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/build
